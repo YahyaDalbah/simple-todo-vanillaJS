@@ -1,0 +1,55 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+header{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-block-start: 10rem;
+    margin-block-end: 2rem;
+    border-bottom: 1px solid gray;
+}
+header div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+header div input{
+    margin-left: 16px;
+}
+
+/* tasks */
+main{
+    width: 50%;
+    
+}
+.search{
+    text-align: center;
+}
+.search-input{
+    background: url('search.svg') no-repeat;
+    padding: 3px 7px 3px 30px;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 3px;
+    font-size: 16px;
+    width: 50%;
+}
+.task{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1.5px solid black;
+    margin-block: 20px;
+    padding: 0.5rem 2rem;
+}
