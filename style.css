@@ -53,3 +53,15 @@ main{
     margin-block: 20px;
     padding: 0.5rem 2rem;
 }
+.done{
+    background-color: rgb(108, 235, 108);
+}
+.hide{
+    display: none;
+}
+.editing-input{
+    border: 0px;
+    border-bottom: 1px solid black;
+    outline: none;
+    width: 40%;
+}
