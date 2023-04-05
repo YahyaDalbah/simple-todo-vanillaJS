@@ -5,6 +5,9 @@ let addTaskInput = document.querySelector('#task')
 let addAssigneeInput = document.querySelector('#assignee')
 let tasksContainer = document.querySelector('.tasks-container')
 let searchBar = document.querySelector('.search-input')
+let completedTasksP = document.querySelector('.completedTasks')
+let footerTasks = document.querySelector('footer p')
+let completedTasks = 0
 
 addTasks(tasks) 
 
@@ -28,12 +31,14 @@ form.addEventListener('submit', e => {
 
 
 function addTasks(tasks){
+    let completed = 0
     tasksContainer.innerHTML = ''
     tasks.forEach((element, i) => {
         let div = document.createElement('div')
         div.classList.add('task')
         if(element.completed){
             div.classList.add('done')
+            completed++
         }
         /*********************************** */
         let dataDiv = document.createElement('div')
@@ -79,6 +84,9 @@ function addTasks(tasks){
 
         tasksContainer.appendChild(div)
     });
+    completedTasks = completed
+    completedTasksP.innerHTML = `completed tasks: ${completedTasks}`
+    footerTasks.innerHTML = `tasks: ${tasks.length}`
 }
 
 //delete
@@ -86,11 +94,17 @@ tasksContainer.addEventListener('click', e => {
     if(e.target.classList.contains('delete')){
         let parent = e.target.closest('.task')
         tasks = tasks.filter(element => {
+            if(element.id == parent.id && element.completed){
+                completedTasks--
+            }
             return element.id != parent.id
         })
         localStorage.setItem('tasks', JSON.stringify(tasks))
         parent.remove()
+        footerTasks.innerHTML = `tasks: ${tasks.length}`
+        completedTasksP.innerHTML = `completed tasks: ${completedTasks}`
     }
+    
 })
 
 //complete
@@ -110,11 +124,15 @@ tasksContainer.addEventListener('click', e => {
         })
         localStorage.setItem('tasks', JSON.stringify(tasks))
         if(parent.classList.contains('done')){
+            completedTasks--
             parent.classList.remove('done')
         }else{
+            completedTasks++
             parent.classList.add('done')
         }
+        completedTasksP.innerHTML = `completed tasks: ${completedTasks}`
     }
+
 })
 
 //search
