@@ -1,5 +1,5 @@
+
 let tasks = JSON.parse(localStorage.getItem('tasks')) || []
-let main = document.querySelector('main')
 let form = document.querySelector('form')
 let addTaskInput = document.querySelector('#task')
 let addAssigneeInput = document.querySelector('#assignee')
@@ -92,17 +92,35 @@ function addTasks(tasks){
 //delete
 tasksContainer.addEventListener('click', e => {
     if(e.target.classList.contains('delete')){
-        let parent = e.target.closest('.task')
-        tasks = tasks.filter(element => {
-            if(element.id == parent.id && element.completed){
-                completedTasks--
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                let parent = e.target.closest('.task')
+                
+                tasks = tasks.filter(element => {
+                    if(element.id == parent.id && element.completed){
+                        completedTasks--
+                    }
+                    return element.id != parent.id
+                })
+                localStorage.setItem('tasks', JSON.stringify(tasks))
+                parent.remove()
+                footerTasks.innerHTML = `tasks: ${tasks.length}`
+                completedTasksP.innerHTML = `completed tasks: ${completedTasks}`
+                Swal.fire(
+                'Deleted!',
+                '',
+                'success'
+                )
             }
-            return element.id != parent.id
         })
-        localStorage.setItem('tasks', JSON.stringify(tasks))
-        parent.remove()
-        footerTasks.innerHTML = `tasks: ${tasks.length}`
-        completedTasksP.innerHTML = `completed tasks: ${completedTasks}`
     }
     
 })
