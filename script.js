@@ -139,7 +139,7 @@ tasksContainer.addEventListener('click', e => {
 searchBar.addEventListener('input', e => {
     let value = e.target.value
     const newtasks = tasks.filter(element => {          //question: why when u set 'tasks' to 'newtasks' it doesn't work properly?
-        return element.task.includes(value)
+        return element.task.toLowerCase().includes(value.toLowerCase())
     })
     addTasks(newtasks)
 })
